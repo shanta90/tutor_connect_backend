@@ -2,10 +2,11 @@ import asyncHandler from '../utils/asyncHandler.js';
 import * as authService from '../services/authService.js';
 
 const setTokenCookie = (res, token) => {
+  const isProduction = process.env.NODE_ENV === 'production';
   res.cookie('jwt', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'strict',
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 };
@@ -30,7 +31,13 @@ export const login = asyncHandler(async (req, res) => {
 
 
 export const logout = asyncHandler(async (req, res) => {
-  res.cookie('jwt', '', { httpOnly: true, expires: new Date(0) });
+  const isProduction = process.env.NODE_ENV === 'production';
+  res.cookie('jwt', '', { 
+    httpOnly: true, 
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'strict',
+    expires: new Date(0) 
+  });
   res.status(200).json({ status: 'success', message: 'Logged out' });
 });
 

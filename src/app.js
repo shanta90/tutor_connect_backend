@@ -23,7 +23,19 @@ if (config.nodeEnv === 'development') {
 }
 
 app.use(cors({
-  origin: config.clientUrl,
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      config.clientUrl,
+      'http://localhost:5173',
+      'http://localhost:5174',
+    ];
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all origins in case of Vercel preview URLs
+    }
+  },
   credentials: true,
 }));
 
