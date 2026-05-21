@@ -2,6 +2,10 @@ import ApiError from '../errors/ApiError.js';
 import { verifyToken } from '../utils/token.js';
 import User from '../models/User.js';
 
+/**
+ * Protect middleware: Verifies JWT token stored in HTTP-only cookies.
+ * Attaches the authenticated user details (excluding password) to the request object.
+ */
 export const protect = async (req, res, next) => {
   let token;
 
