@@ -1,18 +1,16 @@
-# MediQueue Backend
+# TutorConnect Backend
 
-Production-ready backend for the MediQueue Tutor Booking System.
+Welcome to the TutorConnect Backend service. This service provides a RESTful API to manage student bookings and tutor profiles.
 
 ## Tech Stack
-- Node.js, Express.js, MongoDB, Mongoose, JWT, bcryptjs
+- **Runtime**: Node.js & Express.js
+- **Database**: MongoDB & Mongoose
+- **Security**: JWT & bcryptjs, Helmet, HPP, Mongo-Sanitize, Rate Limiter
 
-## Setup
-1. `npm install`
-2. Create `.env` file based on `.env.example`
-3. `npm run dev`
-
-## API Documentation
-Once running, visit: `http://localhost:5000/api/docs`
-
-## Scripts
-- `npm run dev`: Start dev server
-- `npm run seed`: Seed database
+## Environment Variables
+The application requires the following environment variables:
+- `PORT`: Server port (default 5000)
+- `MONGODB_URI`: MongoDB connection string
+- `JWT_SECRET`: Secret key used for signing JWTs
+- `JWT_EXPIRES_IN`: JWT expiration length (e.g., 30d)
+- `CLIENT_URL`: Client URL for CORS policy configurations
