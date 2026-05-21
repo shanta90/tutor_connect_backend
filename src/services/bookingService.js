@@ -3,6 +3,11 @@ import Booking from '../models/Booking.js';
 import Tutor from '../models/Tutor.js';
 import ApiError from '../errors/ApiError.js';
 
+/**
+ * Creates a new booking session.
+ * It uses a MongoDB Transaction to ensure that updating the tutor's slots 
+ * and creating the booking document happen atomically.
+ */
 export const createBooking = async (bookingData) => {
   const session = await mongoose.startSession();
   session.startTransaction();
