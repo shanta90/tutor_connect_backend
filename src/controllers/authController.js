@@ -10,17 +10,24 @@ const setTokenCookie = (res, token) => {
   });
 };
 
+/**
+ * Registers a new user, sets their auth cookie, and returns the user object.
+ */
 export const register = asyncHandler(async (req, res) => {
   const { user, token } = await authService.register(req.body);
   setTokenCookie(res, token);
   res.status(201).json({ status: 'success', data: user });
 });
 
+/**
+ * Logins an existing user by checking credentials and setting cookie.
+ */
 export const login = asyncHandler(async (req, res) => {
   const { user, token } = await authService.login(req.body.email, req.body.password);
   setTokenCookie(res, token);
   res.status(200).json({ status: 'success', data: user });
 });
+
 
 export const logout = asyncHandler(async (req, res) => {
   res.cookie('jwt', '', { httpOnly: true, expires: new Date(0) });
