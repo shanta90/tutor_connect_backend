@@ -14,3 +14,23 @@ The application requires the following environment variables:
 - `JWT_SECRET`: Secret key used for signing JWTs
 - `JWT_EXPIRES_IN`: JWT expiration length (e.g., 30d)
 - `CLIENT_URL`: Client URL for CORS policy configurations
+
+## Getting Started
+
+### 1. Installation
+```bash
+npm install
+```
+
+### 2. Seeding Database
+To seed the database with initial mock tutor listings:
+```bash
+npm run seed
+```
+
+### 3. Running Server
+Start the Express API in development mode:
+```bash
+npm run dev
+```
+
