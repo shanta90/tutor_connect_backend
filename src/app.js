@@ -9,6 +9,7 @@ import errorMiddleware from './middlewares/errorMiddleware.js';
 import authRoutes from './routes/authRoutes.js';
 import tutorRoutes from './routes/tutorRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
+import healthRoutes from './routes/healthRoutes.js';
 import { config } from './config/env.js';
 
 const app = express();
@@ -33,6 +34,7 @@ app.use(cookieParser());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/tutors', tutorRoutes);
 app.use('/api/v1/bookings', bookingRoutes);
+app.use('/api/v1', healthRoutes);
 
 // Swagger
 import { setupSwagger } from './config/swagger.js';
