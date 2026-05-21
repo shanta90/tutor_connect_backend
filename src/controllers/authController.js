@@ -1,0 +1,38 @@
+import asyncHandler from '../utils/asyncHandler.js';
+import * as authService from '../services/authService.js';
+
+const setTokenCookie = (res, token) => {
+  res.cookie('jwt', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+  });
+};
+
+export const register = asyncHandler(async (req, res) => {
+  const { user, token } = await authService.register(req.body);
+  setTokenCookie(res, token);
+  res.status(201).json({ status: 'success', data: user });
+});
+
+export const login = asyncHandler(async (req, res) => {
+  const { user, token } = await authService.login(req.body.email, req.body.password);
+  setTokenCookie(res, token);
+  res.status(200).json({ status: 'success', data: user });
+});
+
+export const logout = asyncHandler(async (req, res) => {
+  res.cookie('jwt', '', { httpOnly: true, expires: new Date(0) });
+  res.status(200).json({ status: 'success', message: 'Logged out' });
+});
+
+export const getMe = asyncHandler(async (req, res) => {
+  res.status(200).json({ status: 'success', data: req.user });
+});
+
+export const googleLogin = asyncHandler(async (req, res) => {
+  const { user, token } = await authService.googleLogin(req.body);
+  setTokenCookie(res, token);
+  res.status(200).json({ status: 'success', data: user });
+});
